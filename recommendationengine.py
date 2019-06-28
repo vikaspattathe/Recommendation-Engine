@@ -47,12 +47,14 @@ def sim_pearson(prefs,p1,p2):
 def loadMovieLens():
 # Get movie titles
     movies={}
-    for line in open('D:\ml-100k/u.item','r'):
+    path='/data/movielens'
+    #path is the address of movielens dataset
+    for line in open(path+'/u.item','r'):
         (id,title)=line.split('|')[0:2]
         movies[id]=title
     # Load data
     prefs={}
-    for line in open('D:\ml-100k/u.data','r'):
+    for line in open(path+'/u.data','r'):
         (user,movieid,rating,ts)=line.split('\t')
         prefs.setdefault(user,{})
         prefs[user][movies[movieid]]=float(rating)
@@ -149,9 +151,10 @@ def transformPrefs(prefs):
 #movies=transformPrefs(critics)
 
 prefs=loadMovieLens( )
+prefs['56']
 itemsim=calculateSimilarItems(prefs,n=50)
 
 print(getRecommendedItems(prefs,itemsim,'56')[0:30])
-#print(getRecommendations(critics,'Toby',similarity=sim_pearson))
+#The above statement will print all movies similar to the 56th movie in the dataset.
 
         
